@@ -43,7 +43,7 @@ body {
 }
 #bird {
     width: 250px;
-    height: 200px;
+    height: 100px;
     position: absolute;
     z-index: 1;
     top: 50%;
