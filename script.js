@@ -36,11 +36,6 @@ function onStartButtonClick(){
 }
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space" || e.code === "ArrowUp") {
-    if (game_state !== "Play") {
-      game_state = "Play";
-      startGame();
-    }
-
     bird_dy = -7;
   }
 });
