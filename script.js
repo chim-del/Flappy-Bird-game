@@ -11,6 +11,17 @@ let score_display = document.getElementById("score");
 let game_container = document.getElementById("gamce-container");
 let start_btn = document.getElementById("start-btn");
 
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" ) {
+        if (game_state !== "Play") {
+            game_state = "Play";
+            startGame();
+        }
+    }
+
+    bird_dy = -7;
+})
+
 function applyGravity() {
   bird_dy += gravity;
   let birdTop = bird.offsetTop + bird_dy;
@@ -19,4 +30,12 @@ function applyGravity() {
   birdTop = Math.min(birdTop, game_container.offsetHeight - bird.offsetHeight);
 
   bird.style.yop = birdTop + "px";
+}
+
+function startGame() {
+    if (gameInterval !== null) return;
+
+    gameInterval = setInterval(() => {
+        applyGravity()
+    })
 }
