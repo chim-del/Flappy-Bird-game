@@ -48,6 +48,7 @@ body {
     background: url("assets/bird.png") no-repeat center center;
     background-size: cover;
 }
+
 .pipe {
     position: absolute;
     width: 60px;
