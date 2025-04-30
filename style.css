@@ -15,6 +15,7 @@ body {
     background-size: cover;
 }
 #score {
+    z-index: 1;
     position: absolute;
     top: 10px;
     left: 10px;
@@ -23,6 +24,7 @@ body {
     font-family: "Rubik Mono One", monospace;
 }
 #start-btn {
+    z-index: 1;
     position: absolute;
     top: 20px;
     right: 10px;
@@ -37,8 +39,8 @@ body {
 }
 
 #bird {
-    width: 105px;
-    height: 75px;
+    width: 80px;
+    height: 56px;
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -52,7 +54,7 @@ body {
 }
 
 .top_pipe {
-    background: url("assets/pipe2.png") no-repeat bottom center ;
+    background: url("assets/pipe2.png") no-repeat bottom center;
 }
 
 .bottom_pipe {

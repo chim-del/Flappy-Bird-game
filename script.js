@@ -15,6 +15,20 @@ let score_display = document.getElementById("score");
 let game_container = document.getElementById("game_container");
 let start_btn = document.getElementById("start-btn");
 
+function startGame() {
+  if (gameInterval !== null) return;
+
+  gameInterval = setInterval(() => {
+    applyGravity();
+    movePipes();
+    checkCollision();
+    frame++;
+    if (frame % frame_time === 0) {
+      createPipe();
+    }
+  }, 10);
+}
+
 function applyGravity() {
   bird_dy += gravity;
   let birdTop = bird.offsetTop + bird_dy;
@@ -25,23 +39,11 @@ function applyGravity() {
   bird.style.top = birdTop + "px";
 }
 
-function startGame() {
-  if (gameInterval !== null) return;
-
-  gameInterval = setInterval(() => {
-    applyGravity();
-    movePipes();
-    frame++;
-    if (frame % frame_time === 0) {
-      createPipe();
-    }
-  }, 10);
-}
-function onStartButtonClick(){
-    if (game_state !== "Play") {
-        game_state = "Play";
-        startGame()
-    }
+function onStartButtonClick() {
+  if (game_state !== "Play") {
+    game_state = "Play";
+    startGame();
+  }
 }
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space" || e.code === "ArrowUp") {
@@ -51,8 +53,8 @@ document.addEventListener("keydown", (e) => {
 
 // Create Pipe
 function createPipe() {
-  let pipe_position = 
-    Math.floor(Math.random() * (game_container.offsetHeight - pipe_gap - 100)) + 
+  let pipe_position =
+    Math.floor(Math.random() * (game_container.offsetHeight - pipe_gap - 100)) +
     50;
 
   // Top pipe
@@ -66,10 +68,10 @@ function createPipe() {
   // Bottom pipe
   let bottom_pipe = document.createElement("div");
   bottom_pipe.className = "pipe bottom_pipe";
-  bottom_pipe.style.height = 
+  bottom_pipe.style.height =
     game_container.offsetHeight - pipe_gap - pipe_position + "px";
   bottom_pipe.style.bottom = "0px";
-  bottom_pipe.style.left = "100%"
+  bottom_pipe.style.left = "100%";
   game_container.appendChild(bottom_pipe);
 
   pipes.push(top_pipe, bottom_pipe);
@@ -81,10 +83,69 @@ function movePipes() {
 
     // Remove pipes from the screeen
     if (pipe.offsetLeft < -pipe.offsetWidth) {
-      pipe.remove()
+      pipe.remove();
     }
   }
 
-// Remove old pipes from the array
-pipes = pipes.filter((pipe) => pipe.offsetLeft + pipe.offsetWidth > 0);
+  // Remove old pipes from the array
+  pipes = pipes.filter((pipe) => pipe.offsetLeft + pipe.offsetWidth > 0);
+}
+function checkCollision() {
+  let birdRect = bird.getBoundingClientRect();
+  for (let pipe of pipes) {
+    let pipeRect = pipe.getBoundingClientRect();
+
+    if (
+      birdRect.left < pipeRect.left + pipeRect.width &&
+      birdRect.left + birdRect.width > pipeRect.left &&
+      birdRect.top < pipeRect.top + pipeRect.height &&
+      birdRect.top + birdRect.height > pipeRect.top
+    ) {
+      endGame();
+      return;
+    }
+  }
+  if (
+    bird.offsetTop <= 0 ||
+    bird.offsetTop >= game_container.offsetHeight - bird.offsetHeight
+  ) {
+    endGame();
+  }
+  // Increase score
+  pipes.forEach((pipe, index) => {
+    if (index % 2 === 0) {
+      if (
+        pipe.offsetLeft + pipe.offsetWidth < bird.offsetLeft &&
+        !pipe.passed
+      ) {
+        pipe.passed = true;
+        setScore(score + 1);
+      }
+    }
+  });
+}
+
+function setScore(newScore) {
+  score = newScore;
+  score_display.textContent = "Score: " + score;
+}
+
+function endGame() {
+  clearInterval(gameInterval);
+  gameInterval = null;
+
+  alert("Game Over! Your Score " + score);
+  resetGame();
+}
+
+function resetGame() {
+  bird.style.top = "50%";
+  bird_dy = 0;
+  for (let pipe of pipes) {
+    pipe.remove();
+  }
+  pipes = [];
+  setScore(0);
+  frame = 0;
+  game_state = "Start";
 }
