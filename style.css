@@ -37,12 +37,24 @@ body {
 }
 
 #bird {
-    width: 250px;
-    height: 200px;
+    width: 105px;
+    height: 75px;
     position: absolute;
     z-index: 1;
     top: 50%;
     left: 40%;
     background: url("assets/bird.png") no-repeat center center;
     background-size: cover;
+}
+.pipe {
+    position: absolute;
+    width: 60px;
+}
+
+.top_pipe {
+    background: url("assets/pipe2.png") no-repeat bottom center ;
+}
+
+.bottom_pipe {
+    background: url("assets/pipe.png");
 }
