@@ -14,26 +14,38 @@ body {
     background: url("assets/background.png");
     background-size: cover;
 }
+#score-bckg {
+    z-index: 1;
+    position: absolute;
+    top: 18px;
+    left: 5px;
+    width: 192px;
+    height: 67px;
+    background: url("assets/score.png") no-repeat center;
+}
 #score {
     z-index: 1;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    color: white;
+    top: 38px;
+    left: 18px;
+    color: black;
     font-size: 24px;
+
     font-family: "Rubik Mono One", monospace;
 }
 #start-btn {
     z-index: 1;
     position: absolute;
-    top: 20px;
-    right: 10px;
+    top: 400px;
+    right: 830px;
     padding: 10px 20px;
-    font-size: 16px;
-    background-color: chartreuse;
-    border-color: aliceblue;
+    font-size: 36px;
+    width: 288px;
+    height: 135px;
+    background: url("assets/start.png") no-repeat center center;
     color: azure;
-    border-radius: 16px;
+    border-color: transparent;
+
     cursor: pointer;
     font-family: "Rubik Mono One", monospace;
 }
@@ -43,15 +55,18 @@ body {
     height: 56px;
     position: absolute;
     z-index: 1;
-    top: 50%;
-    left: 40%;
-    background: url("assets/bird.png") no-repeat center center;
+    top: 85px;
+    left: 48%;
+    background: url("assets/bird.png") no-repeat center;
     background-size: cover;
+    transform-origin: center;
+    transition: transform 0.1s linear;
 }
 
 .pipe {
     position: absolute;
-    width: 60px;
+    width: 50px;
+    height: 768px;
 }
 
 .top_pipe {
@@ -60,4 +75,14 @@ body {
 
 .bottom_pipe {
     background: url("assets/pipe.png");
+}
+
+#difficulty-select {
+    position: absolute;
+    z-index: 1;
+    top: 100px;
+    right: 20px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
 }

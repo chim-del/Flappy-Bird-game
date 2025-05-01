@@ -5,7 +5,11 @@ let game_state = "Start";
 let pipes = [];
 let pipe_gap = 250;
 let frame = 0;
+let pipeSpeed = 3;
 const frame_time = 150;
+let highScore = localStorage.getItem("flappyBirdHighScore") || 0;
+let musicmuted = false;
+const muteBtn = document.getElementById("mute-btn");
 
 // interval
 let gameInterval = null;
@@ -17,11 +21,14 @@ let start_btn = document.getElementById("start-btn");
 
 function startGame() {
   if (gameInterval !== null) return;
-
+  //backgroundMusic.play();
+  highScore = localStorage.getItem("flappyBirdHighScore") || 0;
+  score_display.textContent = "Score:" + score + "| Best:" + highScore;
   gameInterval = setInterval(() => {
     applyGravity();
     movePipes();
     checkCollision();
+    getDifficultySettings();
     frame++;
     if (frame % frame_time === 0) {
       createPipe();
@@ -37,16 +44,20 @@ function applyGravity() {
   birdTop = Math.min(birdTop, game_container.offsetHeight - bird.offsetHeight);
 
   bird.style.top = birdTop + "px";
+  let angle = Math.min(Math.max(bird_dy * 3, -30), 90);
+  bird.style.transform = `rotate(${angle}deg)`;
 }
 
 function onStartButtonClick() {
   if (game_state !== "Play") {
     game_state = "Play";
     startGame();
+    start_btn.style.visibility = "hidden";
   }
 }
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space" || e.code === "ArrowUp") {
+    //flapSound();
     bird_dy = -7;
   }
 });
@@ -79,7 +90,7 @@ function createPipe() {
 
 function movePipes() {
   for (let pipe of pipes) {
-    pipe.style.left = pipe.offsetLeft - 3 + "px";
+    pipe.style.left = pipe.offsetLeft - pipeSpeed + "px";
 
     // Remove pipes from the screeen
     if (pipe.offsetLeft < -pipe.offsetWidth) {
@@ -126,11 +137,17 @@ function checkCollision() {
 }
 
 function setScore(newScore) {
+  //if (newScore > score) {
+  //  scoreSound.play();
+  //}
   score = newScore;
-  score_display.textContent = "Score: " + score;
+  score_display.textContent = "Score:" + score + "| Best:" + highScore;
 }
 
 function endGame() {
+  if (Number(score) > Number(highScore)) {
+    localStorage.setItem("flappyBirdHighScore", score);
+  }
   clearInterval(gameInterval);
   gameInterval = null;
 
@@ -139,6 +156,8 @@ function endGame() {
 }
 
 function resetGame() {
+  start_btn.style.visibility = "visible";
+  bird.style.transform = `rotate(${0}deg)`;
   bird.style.top = "50%";
   bird_dy = 0;
   for (let pipe of pipes) {
@@ -149,3 +168,39 @@ function resetGame() {
   frame = 0;
   game_state = "Start";
 }
+
+function getDifficultySettings() {
+  const selected = document.getElementById("difficulty-select").value;
+
+  if (selected === "easy") {
+    pipeSpeed = 2;
+    pipe_gap = 350;
+  } else if (selected === "medium") {
+    pipeSpeed = 3;
+    pipe_gap = 250;
+  } else if (selected === "hard") {
+    pipeSpeed = 5;
+    pipe_gap = 150;
+  }
+}
+
+const flapSound = new Audio("");
+const scoreSound = new Audio("");
+const hitSound = new Audio("");
+
+const backgroundMusic = new Audio("");
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.5;
+
+muteBtn = document.getElementById("mute-btn");
+
+muteBtn.addEventListener("click", () => {
+  if (musicMuted) {
+    backgroundMusic.play();
+    muteBtn.textContent = "Mute Music";
+  } else {
+    backgroundMusic.pause();
+    muteBtn.textContent = "Play Music";
+  }
+  musicMuted = !musicMuted;
+});
