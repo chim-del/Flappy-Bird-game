@@ -91,14 +91,27 @@ body {
 .bottom_pipe {
     background: url("assets/pipe.png");
 }
+#difficulty {
+    position: absolute;
+    top: 10%;
+    left: 6px;
+    font-size: 20px;
+}
 
 #difficulty-select {
     position: absolute;
     z-index: 1;
-    top: 10%;
+    top: 12%;
     left: 5px;
-    width: 350px;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 5px;
+    width: 300px;
+    height: 60px;
+    border-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: "Rubik Mono One", monospace;
+    color: black;
+    background: url("assets/difficulty.png") no-repeat center center;
+    text-align: center;
+    background-color: transparent;
 }
+
