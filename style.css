@@ -19,7 +19,7 @@ body {
     position: absolute;
     top: 18px;
     left: 5px;
-    width: 192px;
+    width: 350px;
     height: 67px;
     background: url("assets/score.png") no-repeat center;
 }
@@ -27,23 +27,38 @@ body {
     z-index: 1;
     position: absolute;
     top: 38px;
-    left: 18px;
+    left: 22px;
     color: black;
     font-size: 24px;
 
     font-family: "Rubik Mono One", monospace;
 }
+#mute-btn{
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    font-family: "Rubik Mono One", monospace;
+    width: 140px;
+    height: 100px;
+    right: 1%;
+    top: 1%;
+    font-size: 20px;
+    border-color: transparent;
+    background-size: cover;
+    background: url("assets/mute.png") no-repeat center;
+}
 #start-btn {
     z-index: 1;
     position: absolute;
-    top: 400px;
-    right: 830px;
+    left: 43%;
+    bottom: 42%;
     padding: 10px 20px;
     font-size: 36px;
-    width: 288px;
-    height: 135px;
+    width: 329px;
+    height: 160px;
     background: url("assets/start.png") no-repeat center center;
     color: azure;
+    background-size: cover;
     border-color: transparent;
 
     cursor: pointer;
@@ -55,7 +70,7 @@ body {
     height: 56px;
     position: absolute;
     z-index: 1;
-    top: 85px;
+    top: 50%;
     left: 48%;
     background: url("assets/bird.png") no-repeat center;
     background-size: cover;
