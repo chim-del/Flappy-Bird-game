@@ -118,10 +118,10 @@ function checkCollision() {
     let pipeRect = pipe.getBoundingClientRect();
 
     if (
-      birdRect.left - 20 < pipeRect.left + pipeRect.width &&
-      birdRect.left + birdRect.width - 20 > pipeRect.left &&
-      birdRect.top - 20 < pipeRect.top + pipeRect.height &&
-      birdRect.top + birdRect.height - 20 > pipeRect.top
+      birdRect.left < pipeRect.left + pipeRect.width &&
+      birdRect.left + birdRect.width > pipeRect.left &&
+      birdRect.top < pipeRect.top + pipeRect.height &&
+      birdRect.top + birdRect.height > pipeRect.top
     ) {
       endGame();
       return;
