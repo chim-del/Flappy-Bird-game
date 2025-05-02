@@ -217,3 +217,4 @@ muteBtn.addEventListener("click", () => {
   }
   musicMuted = !musicMuted;
 });
+
