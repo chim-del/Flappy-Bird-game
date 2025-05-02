@@ -95,8 +95,9 @@ body {
 #difficulty-select {
     position: absolute;
     z-index: 1;
-    top: 100px;
-    right: 20px;
+    top: 10%;
+    left: 5px;
+    width: 350px;
     padding: 8px;
     font-size: 16px;
     border-radius: 5px;

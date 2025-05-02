@@ -8,6 +8,7 @@ let frame = 0;
 let pipeSpeed = 3;
 const frame_time = 150;
 let highScore = localStorage.getItem("flappyBirdHighScore") || 0;
+let selectBtn = document.getElementById("difficulty-select");
 let musicMuted = false;
 
 
@@ -53,6 +54,8 @@ function onStartButtonClick() {
     game_state = "Play";
     startGame();
     start_btn.style.visibility = "hidden";
+    muteBtn.style.visibility = "hidden";
+    selectBtn.style.visibility = "hidden";
   }
 }
 document.addEventListener("keydown", (e) => {
@@ -108,10 +111,10 @@ function checkCollision() {
     let pipeRect = pipe.getBoundingClientRect();
 
     if (
-      birdRect.left < pipeRect.left + pipeRect.width - 10 &&
-      birdRect.left + birdRect.width > pipeRect.left - 10 &
-      birdRect.top < pipeRect.top + pipeRect.height - 10 &&
-      birdRect.top + birdRect.height > pipeRect.top - 10
+      birdRect.left + 10 < pipeRect.left + pipeRect.width &&
+      birdRect.left + birdRect.width > pipeRect.left &&
+      birdRect.top + 10 < pipeRect.top + pipeRect.height &&
+      birdRect.top + birdRect.height > pipeRect.top
     ) {
       endGame();
       return;
@@ -160,6 +163,8 @@ function endGame() {
 
 function resetGame() {
   start_btn.style.visibility = "visible";
+  muteBtn.style.visibility = "visible";
+  selectBtn.style.visibility = "visible";
   bird.style.transform = `rotate(${0}deg)`;
   bird.style.top = "50%";
   bird_dy = 0;
