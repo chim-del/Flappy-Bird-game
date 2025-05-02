@@ -11,7 +11,7 @@ body {
     width: 100%;
     height: 100vh;
     margin: 0;
-    background: url("assets/background.png");
+    background: url("assets/background.png") no-repeat bottom center;
     background-size: cover;
 }
 #score-bckg {
@@ -80,8 +80,8 @@ body {
 
 .pipe {
     position: absolute;
-    width: 50px;
-    height: 768px;
+    width: 77px;
+    height: 2413px;
 }
 
 .top_pipe {
@@ -101,7 +101,7 @@ body {
 #difficulty-select {
     position: absolute;
     z-index: 1;
-    top: 12%;
+    top: 13%;
     left: 5px;
     width: 300px;
     height: 60px;

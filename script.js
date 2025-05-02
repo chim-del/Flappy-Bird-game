@@ -10,7 +10,7 @@ const frame_time = 150;
 let highScore = localStorage.getItem("flappyBirdHighScore") || 0;
 let selectBtn = document.getElementById("difficulty-select");
 let musicMuted = false;
-
+let textDiff = document.getElementById("difficulty")
 
 // interval
 let gameInterval = null;
@@ -30,6 +30,7 @@ function startGame() {
     movePipes();
     checkCollision();
     getDifficultySettings();
+    //updateBirdAvatar();
     frame++;
     if (frame % frame_time === 0) {
       createPipe();
@@ -56,6 +57,7 @@ function onStartButtonClick() {
     start_btn.style.visibility = "hidden";
     muteBtn.style.visibility = "hidden";
     selectBtn.style.visibility = "hidden";
+    textDiff.style.visibility = "hidden";
   }
 }
 document.addEventListener("keydown", (e) => {
@@ -111,10 +113,10 @@ function checkCollision() {
     let pipeRect = pipe.getBoundingClientRect();
 
     if (
-      birdRect.left + 10 < pipeRect.left + pipeRect.width &&
-      birdRect.left + birdRect.width > pipeRect.left &&
-      birdRect.top + 10 < pipeRect.top + pipeRect.height &&
-      birdRect.top + birdRect.height > pipeRect.top
+      birdRect.left - 20 < pipeRect.left + pipeRect.width &&
+      birdRect.left + birdRect.width - 20 > pipeRect.left &&
+      birdRect.top - 20 < pipeRect.top + pipeRect.height &&
+      birdRect.top + birdRect.height - 20 > pipeRect.top
     ) {
       endGame();
       return;
@@ -165,6 +167,7 @@ function resetGame() {
   start_btn.style.visibility = "visible";
   muteBtn.style.visibility = "visible";
   selectBtn.style.visibility = "visible";
+  textDiff.style.visibility = "visible";
   bird.style.transform = `rotate(${0}deg)`;
   bird.style.top = "50%";
   bird_dy = 0;
@@ -218,3 +221,14 @@ muteBtn.addEventListener("click", () => {
   musicMuted = !musicMuted;
 });
 
+const birdImg = document.getElementById("bird");
+
+function updateBirdAvatar(score) {
+  if (score >= 10 && score < 20) {
+    bird.style.background = "url(/assets/bird_level2.png) center center"
+  } else if (score >= 20) {
+    bird.style.background = "url(/assets/bird_level3.png) center center"
+  } else {
+    bird.style.background = "url(/assets/bird.png) center center"
+  }
+}
