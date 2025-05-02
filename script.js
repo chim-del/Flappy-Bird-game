@@ -10,7 +10,10 @@ const frame_time = 150;
 let highScore = localStorage.getItem("flappyBirdHighScore") || 0;
 let selectBtn = document.getElementById("difficulty-select");
 let musicMuted = false;
-let textDiff = document.getElementById("difficulty")
+let textDiff = document.getElementById("difficulty");
+let logo = document.getElementById("logo");
+let bird_de = document.getElementById("bird-choose");
+let bird_text = document.getElementById("bird-select");
 
 // interval
 let gameInterval = null;
@@ -30,7 +33,6 @@ function startGame() {
     movePipes();
     checkCollision();
     getDifficultySettings();
-    //updateBirdAvatar();
     frame++;
     if (frame % frame_time === 0) {
       createPipe();
@@ -58,6 +60,9 @@ function onStartButtonClick() {
     muteBtn.style.visibility = "hidden";
     selectBtn.style.visibility = "hidden";
     textDiff.style.visibility = "hidden";
+    logo.style.visibility = "hidden";
+    bird_de.style.visibility = "hidden";
+    bird_text.style.visibility = "hidden";
   }
 }
 document.addEventListener("keydown", (e) => {
@@ -168,6 +173,9 @@ function resetGame() {
   muteBtn.style.visibility = "visible";
   selectBtn.style.visibility = "visible";
   textDiff.style.visibility = "visible";
+  logo.style.visibility = "visible";
+  bird_de.style.visibility = "visible";
+  bird_text.style.visibility = "visible";
   bird.style.transform = `rotate(${0}deg)`;
   bird.style.top = "50%";
   bird_dy = 0;
@@ -221,14 +229,21 @@ muteBtn.addEventListener("click", () => {
   musicMuted = !musicMuted;
 });
 
-const birdImg = document.getElementById("bird");
+const selected2 = (document.getElementById("bird-choose").onchange = (e) => {
+  let value = e.target.value;
+  if (value === "yellow") {
+    bird.style.background = "url('assets/bird.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
 
-function updateBirdAvatar(score) {
-  if (score >= 10 && score < 20) {
-    bird.style.background = "url(/assets/bird_level2.png) center center"
-  } else if (score >= 20) {
-    bird.style.background = "url(/assets/bird_level3.png) center center"
-  } else {
-    bird.style.background = "url(/assets/bird.png) center center"
+    console.log("called");
+  } else if (value === "blue") {
+    bird.style.background =
+      "url('assets/bird_blue.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
+  } else if (value === "red") {
+    bird.style.background =
+      "url('assets/bird_red.png') no-repeat center center";
+    bird.style.backgroundSize = "cover";
   }
-}
+  console.log(bird.style);
+});

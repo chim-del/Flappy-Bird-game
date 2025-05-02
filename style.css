@@ -98,7 +98,15 @@ body {
     color: white;
     font-size: 20px;
 }
-
+#logo {
+    position: absolute;
+    z-index: 1;
+    top: 1.5%;
+    left: 24.5%;
+    width: 1024px;
+    height: 272px;
+    background: url("assets/logo.png") no-repeat center;
+}
 #difficulty-select {
     position: absolute;
     z-index: 1;
@@ -115,4 +123,27 @@ body {
     text-align: center;
     background-color: transparent;
 }
+#bird-select {
+    position: absolute;
+    top: 20%;
+    left: 6px;
+    color: white;
+    font-size: 20px;
+}
 
+#bird-choose {
+    position: absolute;
+    z-index: 1;
+    top: 23%;
+    left: 5px;
+    width: 300px;
+    height: 60px;
+    border-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: "Rubik Mono One", monospace;
+    color: black;
+    background: url("assets/difficulty.png") no-repeat center center;
+    text-align: center;
+    background-color: transparent;
+}
